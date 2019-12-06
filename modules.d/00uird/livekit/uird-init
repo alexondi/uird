@@ -34,24 +34,25 @@ echo "0" >/proc/sys/kernel/printk
 
 header $HEADER_START
 header "[ $(cat /uird_version) $LANG]"
-
+echo 1
 debug_start
 debug_shell
 
 [ -d /lib/modules/"$(uname -r)" ] || [ -d /lib64/modules/"$(uname -r)" ] || (echolog "$NO_MODULES" && exit 1)
 
 debug_shell
-
+echo 2
 init_devs
 debug_shell
-
+echo 3
 mkdir -p $MEMORY /tmp
 
 cfg_parser_pre
 old_pars_compat
 short_pars_compat
+echo 4
 BREAKSTEP="$(getpar $UIRD_BREAK 1 1)"
-echo 0
+echo 5
 # print help
 if cat /tmp/basecfg | grep -q help; then
 	echo ""
@@ -97,9 +98,9 @@ sed -i "s:LIVEKITNAME.*:LIVEKITNAME=$LIVEKITNAME:" /etc/initvars
 while [ "$(cat /proc/partitions | tail -n1 | awk '{print $1}')0" -le 10 ]; do
 	sleep 0.3
 done
-
 #start uird.scan
 uird_scan
+echo 6
 
 # start quickshell
 start_quickshell
