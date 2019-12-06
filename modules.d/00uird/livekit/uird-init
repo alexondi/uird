@@ -3,7 +3,7 @@
 # UIRD Init script
 # Author: Anton Goroshkin <http://magos-linux.ru>
 # Author: Alexander Betkher <http://magos-linux.ru>
-
+echo 999
 . /livekitlib
 
 #Messages
