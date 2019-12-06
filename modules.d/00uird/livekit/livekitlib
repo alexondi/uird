@@ -143,7 +143,7 @@ INITIALIZE=$($GETTEXT "initializing")
 # quickshell, qs 	     	 - консоль на начальном этапе работы uird-init
 # qse 			     		 - консоль в конце работы uird-init
 # debug 		     		 - подробный вывод и приостановка uird-init на нескольких этапах работы
-# uird.quiet                 - no output
+# uird.silent                 - no output
 [ -f "/uird_configs/uird_aliases" ] && . /uird_configs/uird_aliases
 
 [ -z $UIRD_BASECFG ] && UIRD_BASECFG=uird.basecfg
@@ -202,8 +202,7 @@ debug_log() {
 # $1 = text to show
 #
 header() {
-#>/dev/null
-if ! getpar quiet  ; then
+if ! getpar silent >/dev/null ; then
         echo -e "\\033[0;1m""$@""\\033[0;0m"
 fi
 }
@@ -211,12 +210,12 @@ fi
 # echo green star
 #
 echo_green_star() {
-if ! getpar quiet > /dev/null ; then
+if ! getpar silent > /dev/null ; then
 	echo -ne $green"* "$default >/dev/console 2>/dev/console
 fi
 }
 echo_blue_star() {
-if ! getpar quiet > /dev/null ; then
+if ! getpar silent > /dev/null ; then
         echo -ne $blue"* "$default >/dev/console 2>/dev/console
 fi
 }
@@ -224,13 +223,13 @@ fi
 # log - store given text in /var/log/uird.dbg.log
 log() {
 # > /dev/null
-if ! getpar quiet; then
+if ! getpar silent; then
         echo "$@" 2>/dev/null >>/var/log/uird.dbg.log
 fi
 }
 
 echolog() {
-if ! getpar quiet >/dev/null ; then
+if ! getpar silent >/dev/null ; then
 	local key
 	log "$@"
 	key="$1"
@@ -447,7 +446,7 @@ short_pars_compat() {
 		s)	mkdir -p /tmp/parameters/uird.swap && rm -f /tmp/parameters/uird.swap/* && echo auto > /tmp/parameters/uird.swap/1;;
                 o)      mkdir -p /tmp/parameters/uird.union && echo overlay > /tmp/parameters/uird.union/1;;
 		c)	mkdir -p /tmp/parameters/uird.mode && echo clean > /tmp/parameters/uird.mode/1;;
-                Y)  	mkdir -p /tmp/parameters/uird.quiet && : > /tmp/parameters/uird.quiet/1;;
+                L)  	mkdir -p /tmp/parameters/uird.silent && : > /tmp/parameters/uird.silent/1;;
 		esac
 	done
 }
