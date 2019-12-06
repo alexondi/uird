@@ -2142,14 +2142,14 @@ union_append_bundles() {
 			[ "$OPTIONS" = "bind" -a -f "$BUNDLE" ] && continue
 
 			if [ "$CP" -a "$(echo $BUNDLE | egrep -i "$CP")" ]; then
-                                #echolog "  $blue-->" $purple"$BUNDLE"$green" [CP mode] "$default
-                                echo_blue_star "-->" $purple"$BUNDLE"$green" [CP mode] "
+                                echolog "  $blue-->" $purple"$BUNDLE"$green" [CP mode] "$default
+                                #echo_blue_star "-->" $purple"$BUNDLE"$green" [CP mode] "
                                 mount -o $OPTIONS $FS "$BUNDLE" "$2/$BUN"
 				cp -a "$2/$BUN"/. $3 2>/dev/null
 				return
 			elif [ "$RUN" -a "$(echo $BUNDLE | egrep -i "$RUN")" ]; then
-                                #echolog "  $blue-->" $purple"$BUNDLE"$yellow" [RUN mode] "$default
-                                echo_blue_star "-->" $purple"$BUNDLE"$yellow" [RUN mode] "
+                                echolog "  $blue-->" $purple"$BUNDLE"$yellow" [RUN mode] "$default
+                                #echo_blue_star "-->" $purple"$BUNDLE"$yellow" [RUN mode] "
                                 [ -x $BUNDLE ] && $BUNDLE
 				return
 			elif [ "$RW" -a "$(echo $BUNDLE | egrep -i "$RW")" ]; then
@@ -2157,8 +2157,8 @@ union_append_bundles() {
 			else
 				MOD=ro+wh
 			fi
-                        #echolog "  $blue-->" $purple"$BUNDLE"$default
-                        echo_blue_star "-->" $purple"$BUNDLE"
+                        echolog "  $blue-->" $purple"$BUNDLE"$default
+                        #echo_blue_star "-->" $purple"$BUNDLE"
 			mount -o $OPTIONS $FS "$BUNDLE" "$2/$BUN"
 			
 			if [ "$UNION_FS" = "overlay" ]; then
