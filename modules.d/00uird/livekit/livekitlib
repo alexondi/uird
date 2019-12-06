@@ -143,7 +143,7 @@ INITIALIZE=$($GETTEXT "initializing")
 # quickshell, qs 	     	 - консоль на начальном этапе работы uird-init
 # qse 			     		 - консоль в конце работы uird-init
 # debug 		     		 - подробный вывод и приостановка uird-init на нескольких этапах работы
-
+# uird.quiet                 - no output
 [ -f "/uird_configs/uird_aliases" ] && . /uird_configs/uird_aliases
 
 [ -z $UIRD_BASECFG ] && UIRD_BASECFG=uird.basecfg
@@ -208,23 +208,31 @@ header() {
 # echo green star
 #
 echo_green_star() {
+if !getpar quiet >/dev/null ; then
 	echo -ne $green"* "$default >/dev/console 2>/dev/console
+fi
 }
 echo_blue_star() {
+if !getpar quiet >/dev/null ; then
         echo -ne $blue"* "$default >/dev/console 2>/dev/console
+fi
 }
 
 # log - store given text in /var/log/uird.dbg.log
 log() {
+if !getpar quiet >/dev/null ; then
 	echo "$@" 2>/dev/null >>/var/log/uird.dbg.log
+fi
 }
 
 echolog() {
+if !getpar quiet >/dev/null ; then
 	local key
 	log "$@"
 	key="$1"
 	shift
 	echo -e "$key" $@ >/dev/console 2>/dev/console
+fi
 }
 
 # show information about the debug shell
@@ -435,6 +443,7 @@ short_pars_compat() {
 		s)	mkdir -p /tmp/parameters/uird.swap && rm -f /tmp/parameters/uird.swap/* && echo auto > /tmp/parameters/uird.swap/1;;
 		o)  mkdir -p /tmp/parameters/uird.union && echo overlay > /tmp/parameters/uird.union/1;;
 		c)	mkdir -p /tmp/parameters/uird.mode && echo clean > /tmp/parameters/uird.mode/1;;
+                0)  	mkdir -p /tmp/parameters/uird.quiet && echo clean > /tmp/parameters/uird.quiet/1;;
 		esac
 	done
 }
