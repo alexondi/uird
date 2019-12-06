@@ -29,8 +29,8 @@ MOUNTDIR=$LAYER_BASE
 
 echo "0" >/proc/sys/kernel/printk
 
-[ ! -d /tmp/parameters/uird.silent ] && header $HEADER_START
-[ ! -d /tmp/parameters/uird.silent ] && header "[ $(cat /uird_version) $LANG]"
+[ "$(getpar $UIRD_SILENT)" ] && header $HEADER_START
+[ "$(getpar $UIRD_SILENT)" ] && header "[ $(cat /uird_version) $LANG]"
 
 debug_start
 debug_shell

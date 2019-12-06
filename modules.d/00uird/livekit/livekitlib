@@ -182,6 +182,7 @@ INITIALIZE=$($GETTEXT "initializing")
 [ -z $UIRD_SHUTDOWN ] && UIRD_SHUTDOWN=uird.shutdown
 [ -z $UIRD_PREINIT ] && UIRD_PREINIT=uird.preinit
 [ -z $UIRD_ROOTFS ] && UIRD_ROOTFS=uird.rootfs
+[ -z $UIRD_SILENT ] && UIRD_SILENT=uird.silent
 
 # =================================================================
 # debug and output functions
