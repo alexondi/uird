@@ -202,26 +202,30 @@ debug_log() {
 # $1 = text to show
 #
 header() {
-	echo -e "\\033[0;1m""$@""\\033[0;0m"
+#>/dev/null
+if ! getpar quiet  ; then
+        echo -e "\\033[0;1m""$@""\\033[0;0m"
+fi
 }
 
 # echo green star
 #
 echo_green_star() {
-if ! getpar quiet >/dev/null ; then
+if ! getpar quiet > /dev/null ; then
 	echo -ne $green"* "$default >/dev/console 2>/dev/console
 fi
 }
 echo_blue_star() {
-if ! getpar quiet >/dev/null ; then
+if ! getpar quiet > /dev/null ; then
         echo -ne $blue"* "$default >/dev/console 2>/dev/console
 fi
 }
 
 # log - store given text in /var/log/uird.dbg.log
 log() {
-if ! getpar quiet >/dev/null ; then
-	echo "$@" 2>/dev/null >>/var/log/uird.dbg.log
+# > /dev/null
+if ! getpar quiet; then
+        echo "$@" 2>/dev/null >>/var/log/uird.dbg.log
 fi
 }
 
@@ -443,7 +447,7 @@ short_pars_compat() {
 		s)	mkdir -p /tmp/parameters/uird.swap && rm -f /tmp/parameters/uird.swap/* && echo auto > /tmp/parameters/uird.swap/1;;
                 o)      mkdir -p /tmp/parameters/uird.union && echo overlay > /tmp/parameters/uird.union/1;;
 		c)	mkdir -p /tmp/parameters/uird.mode && echo clean > /tmp/parameters/uird.mode/1;;
-               # N)  	mkdir -p /tmp/parameters/uird.quiet && echo clean > /tmp/parameters/uird.quiet/1;;
+                Y)  	mkdir -p /tmp/parameters/uird.quiet && : > /tmp/parameters/uird.quiet/1;;
 		esac
 	done
 }
