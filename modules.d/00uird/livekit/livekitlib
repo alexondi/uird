@@ -210,6 +210,9 @@ header() {
 echo_green_star() {
 	echo -ne $green"* "$default >/dev/console 2>/dev/console
 }
+echo_blue_star() {
+        echo -ne $blue"* "$default >/dev/console 2>/dev/console
+}
 
 # log - store given text in /var/log/uird.dbg.log
 log() {
@@ -1582,7 +1585,7 @@ mount_data_source() {
 		done 
 	fi
 	MNT_OPTS="$(echo $MNT_OPTS |sed 's/+/,/')" 
-	echo -ne $blue"  * "$default
+        echo_blue_star #echo -ne $blue"  * "$default
 	echolog "$MOUNT_DATA_SOURCE" $yellow"$SOURCE"$default
 
 	mkdir -p $DST_DIR
@@ -1670,7 +1673,7 @@ syscp() {
 		FILETO=$(getpar $UIRD_SYSCP $NUMPAR 2)
 		mkdir -p ${1}${FILETO}
 		cp -fr ${FILEFROM} ${1}${FILETO}/
-		echo -ne $blue"  * "$default
+                echo_blue_star #echo -ne $blue"  * "$default
 		echo "${FILEFROM} -->  ${FILETO}"
 	done
 }
@@ -1724,7 +1727,7 @@ posix_test() {
 	# if changes can't be mounted or the filesystem is not writable,
 	# fallback to the default: tmpfs
 	if [ $? -ne 0 ]; then
-		echo -ne $blue"  * "$default
+                echo_blue_star #echo -ne $blue"  * "$default
 		echolog "$POSIX_TEST"
 		fumount $2
 		fumount $1
@@ -1734,7 +1737,7 @@ posix_test() {
 		# So it is writable, we will keep the filesystem mounted.
 		# Check if it supports links and chmod.
 		# If not, overmount CHANGES using posixovl
-		echo -ne $blue"  * "$default
+                echo_blue_star #echo -ne $blue"  * "$default
 		echolog "$TESTING_FOR_POSIX"
 		touch $2/.empty1 &&
 			ln -sf $2/.empty1 $2/.empty2 2>/dev/null &&
@@ -2127,20 +2130,23 @@ union_append_bundles() {
 			[ "$OPTIONS" = "bind" -a -f "$BUNDLE" ] && continue
 
 			if [ "$CP" -a "$(echo $BUNDLE | egrep -i "$CP")" ]; then
-				echolog "  $blue-->" $purple"$BUNDLE"$green" [CP mode] "$default
-				mount -o $OPTIONS $FS "$BUNDLE" "$2/$BUN"
+                                #echolog "  $blue-->" $purple"$BUNDLE"$green" [CP mode] "$default
+                                echo_blue_star "-->" $purple"$BUNDLE"$green" [CP mode] "
+                                mount -o $OPTIONS $FS "$BUNDLE" "$2/$BUN"
 				cp -a "$2/$BUN"/. $3 2>/dev/null
 				return
 			elif [ "$RUN" -a "$(echo $BUNDLE | egrep -i "$RUN")" ]; then
-				echolog "  $blue-->" $purple"$BUNDLE"$yellow" [RUN mode] "$default
-				[ -x $BUNDLE ] && $BUNDLE
+                                #echolog "  $blue-->" $purple"$BUNDLE"$yellow" [RUN mode] "$default
+                                echo_blue_star "-->" $purple"$BUNDLE"$yellow" [RUN mode] "
+                                [ -x $BUNDLE ] && $BUNDLE
 				return
 			elif [ "$RW" -a "$(echo $BUNDLE | egrep -i "$RW")" ]; then
 				MOD=rw+wh
 			else
 				MOD=ro+wh
 			fi
-			echolog "  $blue-->" $purple"$BUNDLE"$default
+                        #echolog "  $blue-->" $purple"$BUNDLE"$default
+                        echo_blue_star "-->" $purple"$BUNDLE"
 			mount -o $OPTIONS $FS "$BUNDLE" "$2/$BUN"
 			
 			if [ "$UNION_FS" = "overlay" ]; then
