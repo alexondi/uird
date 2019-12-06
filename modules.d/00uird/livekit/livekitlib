@@ -208,25 +208,25 @@ header() {
 # echo green star
 #
 echo_green_star() {
-if !getpar quiet >/dev/null ; then
+if ! getpar quiet >/dev/null ; then
 	echo -ne $green"* "$default >/dev/console 2>/dev/console
 fi
 }
 echo_blue_star() {
-if !getpar quiet >/dev/null ; then
+if ! getpar quiet >/dev/null ; then
         echo -ne $blue"* "$default >/dev/console 2>/dev/console
 fi
 }
 
 # log - store given text in /var/log/uird.dbg.log
 log() {
-if !getpar quiet >/dev/null ; then
+if ! getpar quiet >/dev/null ; then
 	echo "$@" 2>/dev/null >>/var/log/uird.dbg.log
 fi
 }
 
 echolog() {
-if !getpar quiet >/dev/null ; then
+if ! getpar quiet >/dev/null ; then
 	local key
 	log "$@"
 	key="$1"

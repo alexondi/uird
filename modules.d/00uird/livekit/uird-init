@@ -7,9 +7,9 @@
 . /livekitlib
 
 #Messages
-HEADER_START= ""
+HEADER_START=
 #$($GETTEXT "Starting UIRD init <http://magos-linux.ru>")
-HEADER_END= ""
+HEADER_END=
 #$($GETTEXT "UIRD init is finished, starting")
 MNT_REFRESH=$($GETTEXT "Updating directory /mnt")
 HELP_SYSTEM=$($GETTEXT "UIRD help system")
