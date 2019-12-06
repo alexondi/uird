@@ -44,7 +44,7 @@ BIN_BLKID=/sbin/blkid.real
 BIN_LOSETUP=/sbin/losetup.real
 
 #[ -f $BIN-BLKID ] || BIN_BLKID=$(which blkid)
-
+echo A
 [ -f /etc/initvars ] && . /etc/initvars
 
 [ "$SYSMNT" ] && MEMORY=$SYSMNT || MEMORY=/memory
@@ -62,7 +62,7 @@ CMDLINE_LANG=$(echo -n " " | cat - /proc/cmdline 2>/dev/null | tr -s ";" "," | e
 [ -e /usr/share/locale/${LANG}.alias ] && LANG=$(cat /usr/share/locale/${LANG}.alias)
 export LANG=$LANG
 export LOCALE=$LANG
-
+echo A1
 [ -d "/usr/lib/consolefonts/${LANG}" -o -L "/usr/lib/consolefonts/${LANG}" ] && loadfont < /usr/lib/consolefonts/${LANG}/$(ls -1 /usr/lib/consolefonts/${LANG}/)  >/dev/null
 [ -d "/usr/lib/kbd/${LANG}" -o -L "/usr/lib/kbd/${LANG}" ] && loadkeys /usr/lib/kbd/${LANG}/$(ls -1 /usr/lib/kbd/${LANG}/) >/dev/null
 
@@ -91,7 +91,7 @@ SETUP_MACHINES_MOD=$($GETTEXT "Searching bundle for machine-depended changes:")
 SETUP_MACHINES_UNPACKING=$($GETTEXT "unpacking")
 SETUP_MACHINES_TO_RAM=$($GETTEXT "to RAM")
 SETUP_HOMES=$($GETTEXT "Mounting sources for homes directories:")
-
+echo A2
 SETUP_SWAP=$($GETTEXT "Trying to enable SWAP")
 RESIZE_TMPFS=$($GETTEXT "Resizing TMPFS to -")
 SETUP_SYSCP=$($GETTEXT "Copying some UIRD files to system")
@@ -107,7 +107,7 @@ MOUNT_DEVICE_ENC=$($GETTEXT "Mounting encrypted filesystem:")
 NOT_ENOUGH_MEMORY=$($GETTEXT "not enough memory.")
 
 INITIALIZE=$($GETTEXT "initializing")
-
+echo A3
 ##### UIRD cmdline parameters aliases
 
 # uird.basecfg=              - расположение базового конфигурационного файла basecfg.ini
@@ -182,7 +182,7 @@ INITIALIZE=$($GETTEXT "initializing")
 [ -z $UIRD_SHUTDOWN ] && UIRD_SHUTDOWN=uird.shutdown
 [ -z $UIRD_PREINIT ] && UIRD_PREINIT=uird.preinit
 [ -z $UIRD_ROOTFS ] && UIRD_ROOTFS=uird.rootfs
-
+echo AAAAA
 # =================================================================
 # debug and output functions
 # =================================================================
@@ -222,8 +222,7 @@ fi
 
 # log - store given text in /var/log/uird.dbg.log
 log() {
-# > /dev/null
-if ! getpar silent; then
+if ! getpar silent> /dev/null; then
         echo "$@" 2>/dev/null >>/var/log/uird.dbg.log
 fi
 }
