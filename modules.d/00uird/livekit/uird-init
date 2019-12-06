@@ -31,21 +31,24 @@ echo "0" >/proc/sys/kernel/printk
 
 header $HEADER_START
 header "[ $(cat /uird_version) $LANG]"
-echo 1
+
 debug_start
 debug_shell
-echo 2
+
 [ -d /lib/modules/"$(uname -r)" ] || [ -d /lib64/modules/"$(uname -r)" ] || (echolog "$NO_MODULES" && exit 1)
 
 debug_shell
-echo 3
+echo 1
 init_devs
+echo 2
 debug_shell
-
+echo 3
 mkdir -p $MEMORY /tmp
 
 cfg_parser_pre
+echo 4
 old_pars_compat
+echo 5
 short_pars_compat
 BREAKSTEP="$(getpar $UIRD_BREAK 1 1)"
 
@@ -85,7 +88,7 @@ if cat /tmp/basecfg | grep -q help; then
 	shell_cmd "help"
 fi
 debug_shell
-
+echo 6
 #get livekitname
 [ -z $LIVEKITNAME ] && LIVEKITNAME=$(basename $BASECFG)
 sed -i "s:LIVEKITNAME.*:LIVEKITNAME=$LIVEKITNAME:" /etc/initvars
