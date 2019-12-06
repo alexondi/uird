@@ -297,7 +297,7 @@ start_quickshell() {
 
 # Resume from swsuspend
 resume_from_suspend() {
-	if ! getpar noresume; then
+        if ! getpar noresume > /dev/null ; then
 		RESUME_DEV=$($BIN_BLKID | grep -m1 swsuspend | awk -F: '{print $1}')
 		[ -z "$RESUME_DEV" ] || resume $RESUME_DEV
 	fi

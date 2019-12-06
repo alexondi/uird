@@ -97,25 +97,25 @@ sed -i "s:LIVEKITNAME.*:LIVEKITNAME=$LIVEKITNAME:" /etc/initvars
 while [ "$(cat /proc/partitions | tail -n1 | awk '{print $1}')0" -le 10 ]; do
 	sleep 0.3
 done
-echo 1
+
 #start uird.scan
 uird_scan
-echo 11
+
 # start quickshell
 start_quickshell
 debug_shell
-echo 12
+
 # Resume from swsuspend
 resume_from_suspend
 debug_shell
-echo 13
+
 #init swap
 getpar $UIRD_SWAP >/dev/null && init_swap  
 debug_shell
-echo 14
+
 setup_rootfs
 debug_shell
-echo 2
+
 mkdir -p $MOUNTDIR $CHANGES
 
 # init MOUNTS layer
@@ -129,7 +129,7 @@ debug_shell
 #init BASE layer
 [ "$(getpar $UIRD_FROM)" ] && init_layer $DATAMNT/from $LAYER_BASE $UIRD_FROM "check_SGN"
 debug_shell
-echo 3
+
 # init CACHE layer
 [ "$(getpar $UIRD_CACHE)" ] && init_layer $DATAMNT/cache $LAYER_CACHE $UIRD_CACHE
 debug_shell
