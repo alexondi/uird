@@ -2649,3 +2649,4 @@ echo_green_star
 echolog "ROOTFS TYPE: ${FSTYPE} ${ALG}, ${RAMDISK_SIZE}: ${SIZE%%%}% RAM"
 
 }
+echo BBBBB
