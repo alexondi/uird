@@ -7,12 +7,15 @@
 . /livekitlib
 
 #Messages
-HEADER_START=$($GETTEXT "Starting UIRD init <http://magos-linux.ru>")
-HEADER_END=$($GETTEXT "UIRD init is finished, starting")
+HEADER_START=
+#$($GETTEXT "Starting UIRD init <http://magos-linux.ru>")
+HEADER_END=
+#$($GETTEXT "UIRD init is finished, starting")
 MNT_REFRESH=$($GETTEXT "Updating directory /mnt")
 HELP_SYSTEM=$($GETTEXT "UIRD help system")
 NO_MODULES=$($GETTEXT "No modules found for current kernel")
-RAMDISK_SIZE=$($GETTEXT "RAM disk size")
+RAMDISK_SIZE=""
+#$($GETTEXT "RAM disk size")
 
 UNION=$NEWROOT
 BUNDLES=$MEMORY/bundles
@@ -38,20 +41,17 @@ debug_shell
 [ -d /lib/modules/"$(uname -r)" ] || [ -d /lib64/modules/"$(uname -r)" ] || (echolog "$NO_MODULES" && exit 1)
 
 debug_shell
-echo 1
+
 init_devs
-echo 2
 debug_shell
-echo 3
+
 mkdir -p $MEMORY /tmp
 
 cfg_parser_pre
-echo 4
 old_pars_compat
-echo 5
 short_pars_compat
 BREAKSTEP="$(getpar $UIRD_BREAK 1 1)"
-
+echo 0
 # print help
 if cat /tmp/basecfg | grep -q help; then
 	echo ""
@@ -88,7 +88,7 @@ if cat /tmp/basecfg | grep -q help; then
 	shell_cmd "help"
 fi
 debug_shell
-echo 6
+
 #get livekitname
 [ -z $LIVEKITNAME ] && LIVEKITNAME=$(basename $BASECFG)
 sed -i "s:LIVEKITNAME.*:LIVEKITNAME=$LIVEKITNAME:" /etc/initvars
@@ -97,7 +97,7 @@ sed -i "s:LIVEKITNAME.*:LIVEKITNAME=$LIVEKITNAME:" /etc/initvars
 while [ "$(cat /proc/partitions | tail -n1 | awk '{print $1}')0" -le 10 ]; do
 	sleep 0.3
 done
-
+echo 1
 #start uird.scan
 uird_scan
 
@@ -115,7 +115,7 @@ debug_shell
 
 setup_rootfs
 debug_shell
-
+echo 2
 mkdir -p $MOUNTDIR $CHANGES
 
 # init MOUNTS layer
@@ -129,7 +129,7 @@ debug_shell
 #init BASE layer
 [ "$(getpar $UIRD_FROM)" ] && init_layer $DATAMNT/from $LAYER_BASE $UIRD_FROM "check_SGN"
 debug_shell
-
+echo 3
 # init CACHE layer
 [ "$(getpar $UIRD_CACHE)" ] && init_layer $DATAMNT/cache $LAYER_CACHE $UIRD_CACHE
 debug_shell
