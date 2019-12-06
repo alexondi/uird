@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 #
 # UIRD Init script
 # Author: Anton Goroshkin <http://magos-linux.ru>
@@ -7,15 +7,12 @@
 . /livekitlib
 
 #Messages
-HEADER_START=
-#$($GETTEXT "Starting UIRD init <http://magos-linux.ru>")
-HEADER_END=
-#$($GETTEXT "UIRD init is finished, starting")
+HEADER_START=$($GETTEXT "Starting UIRD init <http://magos-linux.ru>")
+HEADER_END=$($GETTEXT "UIRD init is finished, starting")
 MNT_REFRESH=$($GETTEXT "Updating directory /mnt")
 HELP_SYSTEM=$($GETTEXT "UIRD help system")
 NO_MODULES=$($GETTEXT "No modules found for current kernel")
-RAMDISK_SIZE=""
-#$($GETTEXT "RAM disk size")
+RAMDISK_SIZE=$($GETTEXT "RAM disk size")
 
 UNION=$NEWROOT
 BUNDLES=$MEMORY/bundles
@@ -34,14 +31,14 @@ echo "0" >/proc/sys/kernel/printk
 
 header $HEADER_START
 header "[ $(cat /uird_version) $LANG]"
-
+echo 1
 debug_start
 debug_shell
-
+echo 2
 [ -d /lib/modules/"$(uname -r)" ] || [ -d /lib64/modules/"$(uname -r)" ] || (echolog "$NO_MODULES" && exit 1)
 
 debug_shell
-
+echo 3
 init_devs
 debug_shell
 
