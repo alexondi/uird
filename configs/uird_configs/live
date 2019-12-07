@@ -1,0 +1,6 @@
+uird.from=/dev/sdb1/fs.squashfs::MNT_OPTS=ro
+uird.load=/0,/base
+uird.mode=changes
+uird.changes=/dev/sdc1/changes
+uird.ro=*layer-base/0
+uird.silent=enabled
